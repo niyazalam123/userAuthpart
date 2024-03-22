@@ -40,38 +40,6 @@
   --card-border-rgb: 131, 134, 135;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
 
 * {
   box-sizing: border-box;
@@ -79,29 +47,65 @@
   margin: 0;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 a {
   color: inherit;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.container{
+  max-width: 1365px;
+  width: 100%;
+  margin: 0px auto;
+  padding: 10px;
+}
+
+._name1 {
+  max-width: 550px;
+  width: 100%;
+  margin: 50px auto;
+  background: #fff;
+  box-shadow: 0 0 4px -2px #333;
+  border-radius: 6px;
+  padding: 20px;
+}
+._name2 {
+  margin-bottom: 15px;
+}
+._name2 label {
+  display: block;
+  padding-bottom: 3px;
+  padding-left: 6px;
+}
+._name2 input {
+  display: block;
+  width: 100%;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  height: 58px;
+}
+._name3 {
+  display: block;
+  width: 100%;
+  background: #44d;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 4px 12px;
+  height: 50px;
+  font-size: 17px;
+  color: #fff;
+}
+._name1 h3 {
+  text-align: center;
+  margin: 0px 4px 8px;
+  color: #44d;
+}
+._name4 {
+  margin-top: 6px;
+  display: block;
+  text-align: center;
+}
+._name4 span {
+  color: #44d;
 }
