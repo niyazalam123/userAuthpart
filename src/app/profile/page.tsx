@@ -1,6 +1,30 @@
-import React from 'react'
+"use client";
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const page = () => {
+  const route = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogout() {
+    try {
+      setLoading(true)
+      const resp = await axios.get("/api/users/logout");
+      if (resp.data) {
+        toast.success('Logout Successfully!');
+        route.push("/userauth/login");
+      }
+    } catch (error) {
+      console.log("error", error);
+      toast.error('unable to logout!try again');
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <div className='_prof1'>
@@ -9,9 +33,10 @@ const page = () => {
         </div>
         <div className='_prof4'>
           <h4>Niyaz</h4>
-          <button>Logout</button>
+          <button onClick={handleLogout}>{loading ? "Processing...":"Logout"}</button>
         </div>
       </div>
+      <Toaster />
     </>
   )
 }

@@ -109,3 +109,22 @@ a {
 ._name4 span {
   color: #44d;
 }
+._prof1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+._prof4 {
+  display: flex;
+  align-items: center;
+}
+._prof4 button {
+  border: none;
+  background: #44d;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-left: 15px;
+  border-radius: 6px;
+}
