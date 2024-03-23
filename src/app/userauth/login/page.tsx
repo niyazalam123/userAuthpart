@@ -1,12 +1,52 @@
 "use client";
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const page = () => {
-    const [userData,setUserData] = useState({
-        userName:"",
-        password:""
+    const [userData, setUserData] = useState({
+        userName: "",
+        password: ""
     });
+    const [loading, setLoading] = useState(false);
+    const [btnDisabled, setBtnDisabled] = useState(true);
+    const route = useRouter();
+    const [error, setError] = useState<any>("");
+
+    // user can click on button without filling data
+    useEffect(() => {
+        const { userName, password } = userData;
+        if (userName.length > 1 && password.length > 1) {
+            setBtnDisabled(false);
+        }
+        else {
+            setBtnDisabled(true)
+        }
+    }, [userData]);
+
+    // login function code
+    async function handleLogin() {
+        try {
+            setLoading(true);
+            const resp = await axios.post("/api/users/login", userData);
+            console.log("resp", resp);
+            if (resp.data) {
+                toast.success('Login successfully!');
+                userData.userName = "";
+                userData.password = "";
+                route.push("/profile")
+            }
+        } catch (error: any) {
+            console.log("error", error);
+            setError(error.response?.data?.error || "userName and password does not matched");
+        }
+        finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <>
             <div className='_name1'>
@@ -19,7 +59,7 @@ const page = () => {
                         id="_one1"
                         name="userName"
                         value={userData.userName}
-                        onChange={(e:any) => setUserData((prev) => ({ ...prev, userName: e.target.value }))}
+                        onChange={(e: any) => setUserData((prev) => ({ ...prev, userName: e.target.value }))}
                     />
                 </div>
                 <div className='_name2'>
@@ -30,10 +70,15 @@ const page = () => {
                         id="_one3"
                         name="password"
                         value={userData.password}
-                        onChange={(e:any) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
+                        onChange={(e: any) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
                     />
                 </div>
-                <button className='_name3'>SignUp</button>
+                {error && <span style={{ color: "red", display: "block", textAlign: "center", margin: "0px 4px 6px", fontSize: "12px" }}>{error}</span>}
+                <button className='_name3'
+                    disabled={btnDisabled ? true : false}
+                    style={{ opacity: `${btnDisabled ? ".6" : "1"}`, cursor: `${btnDisabled ? "no-drop" : "pointer"}` }}
+                    onClick={handleLogin}
+                >{loading ? "Processing..." : "Login"}</button>
                 <Link href="/userauth/signup" className='_name4'>Dont have account? <span>Signup</span></Link>
             </div>
         </>

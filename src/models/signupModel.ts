@@ -5,19 +5,15 @@ const userDataModel = new mongoose.Schema({
         type: String,
         required: [true, 'userName is required'],
         unique: true,
-        trim: true,
-        lowercase: true
     },
     email:{
         type:String,
         unique: true,
-        trim: true,
-        lowercase: true
+        required: [true, 'email is required'],
     },
     password:{
         type:String,
-        trim: true,
-        lowercase: true
+        required: [true, 'password is required'],
     },
     createdAt: {
         type: Date,
