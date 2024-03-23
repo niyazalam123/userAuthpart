@@ -20,7 +20,7 @@ const page = () => {
                         id="_one1"
                         name="userName"
                         value={userData.userName}
-                        onChange={(e:any) => setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
+                        onChange={(e:any) => setUserData((prev) => ({ ...prev, userName: e.target.value }))}
                     />
                 </div>
                 <div className='_name2'>
@@ -31,7 +31,7 @@ const page = () => {
                         id="_one2"
                         name="email"
                         value={userData.email}
-                        onChange={(e:any) => setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
+                        onChange={(e:any) => setUserData((prev) => ({ ...prev, email: e.target.value }))}
                     />
                 </div>
                 <div className='_name2'>
@@ -42,7 +42,7 @@ const page = () => {
                         id="_one3"
                         name="password"
                         value={userData.password}
-                        onChange={(e:any) => setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))}
+                        onChange={(e:any) => setUserData((prev) => ({ ...prev, password: e.target.value }))}
                     />
                 </div>
                 <button className='_name3'>SignUp</button>
