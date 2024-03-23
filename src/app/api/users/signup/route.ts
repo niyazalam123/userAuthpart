@@ -42,7 +42,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             message:"Signup successfully",
             success:true,
-            user
         },{status:200}
         )
 

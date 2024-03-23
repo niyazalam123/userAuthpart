@@ -15,7 +15,7 @@ const page = () => {
     const route = useRouter();
     const [error, setError] = useState<any>("");
 
-    // user can click on button without filling data
+    // user can not  click on button without filling data
     useEffect(() => {
         const { userName, password } = userData;
         if (userName.length > 1 && password.length > 1) {
@@ -31,12 +31,11 @@ const page = () => {
         try {
             setLoading(true);
             const resp = await axios.post("/api/users/login", userData);
-            console.log("resp", resp);
             if (resp.data) {
                 toast.success('Login successfully!');
+                route.push("/profile");
                 userData.userName = "";
                 userData.password = "";
-                route.push("/profile")
             }
         } catch (error: any) {
             console.log("error", error);
@@ -81,6 +80,7 @@ const page = () => {
                 >{loading ? "Processing..." : "Login"}</button>
                 <Link href="/userauth/signup" className='_name4'>Dont have account? <span>Signup</span></Link>
             </div>
+            <Toaster />
         </>
     )
 }
