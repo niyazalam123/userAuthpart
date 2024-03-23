@@ -78,7 +78,10 @@ const page = () => {
                     style={{ opacity: `${btnDisabled ? ".6" : "1"}`, cursor: `${btnDisabled ? "no-drop" : "pointer"}` }}
                     onClick={handleLogin}
                 >{loading ? "Processing..." : "Login"}</button>
-                <Link href="/userauth/signup" className='_name4'>Dont have account? <span>Signup</span></Link>
+                <div className='_name4011'>
+                    <Link href="/userauth/forgotpassword" className='_name401'>Forgot Password?</Link>
+                    <Link href="/userauth/signup" className='_name4'>Dont have account? <span>Signup</span></Link>
+                </div>
             </div>
             <Toaster />
         </>
