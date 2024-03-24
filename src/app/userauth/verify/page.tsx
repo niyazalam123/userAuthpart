@@ -8,6 +8,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const route = useRouter();
+  const [message,setMessage] = useState(false);
 
   async function handleVerify() {
     try {
@@ -16,7 +17,6 @@ const page = () => {
 
       // Get the value of the 'signature' parameter
       const signature = params.get('signature');
-      console.log("signature", signature)
 
       if (!signature || typeof signature !== 'string') {
         toast.error('invalid url');
@@ -38,11 +38,42 @@ const page = () => {
     }
   }
 
+  async function handleTokenRegenrate(){
+    try {
+      // Create a URLSearchParams object based on the current URL's search parameters
+      const params = new URLSearchParams(window.location.search);
+
+      // Get the value of the 'signature' parameter
+      const signature = params.get('signature');
+
+      if (!signature || typeof signature !== 'string') {
+        toast.error('invalid url');
+        return;
+      }
+
+      setLoading(true);
+      const resp = await axios.post('/api/users/regeneratetoken', { signature });
+      if (resp.data) {
+        toast.success('token genrated successfully! check your email');
+        setMessage(true);
+      }
+    } catch (error:any) {
+      toast.error(error.response?.data?.error);
+    }finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <div className='_vryfu1'>
         <h2 className='_vryfu2'>Verify Your Email Address</h2>
-        <button className='_vryfu3' onClick={handleVerify}>Click To Verify</button>
+        {error !== "Verification token expired" ? <button className='_vryfu3' onClick={handleVerify}>{loading ? "verifying..." : "Click To Verify"}</button> :
+          <>
+            {message && <p className='_vryfu5'>we send you an email for verification. check your email!</p>}
+            <button className='_vryfu4' onClick={handleTokenRegenrate}>{loading ? "regenerating...":"Re generate token"}</button>
+          </>
+        }
       </div>
       <Toaster />
     </>
