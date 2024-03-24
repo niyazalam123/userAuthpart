@@ -23,7 +23,7 @@ const page = () => {
             const resp = await axios.post("/api/users/signup",userData);
             if(resp.statusText){
                 toast.success('user created successfully');
-                route.push("/userauth/login");
+                route.push("/userauth/mailconfirmation");
                 userData.userName="";
                 userData.email="";
                 userData.password=""
