@@ -2,6 +2,7 @@ import { mongoDbConnect } from "@/dbConfig/dbConfig";
 import User from "@/models/signupModel";
 import { NextResponse, NextRequest } from "next/server";
 import bcryptjs from "bcryptjs";
+import {sendMail} from "@/helpers/mailers"
 
 mongoDbConnect();
 
@@ -38,6 +39,9 @@ export async function POST(request: NextRequest) {
 
         // Save the new user to the database
         const user = await newUser.save();
+
+        // send verification email
+        await sendMail({email,emailType:"VERIFY",userId:user._id})
 
         return NextResponse.json({
             message:"Signup successfully",

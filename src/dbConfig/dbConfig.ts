@@ -15,6 +15,7 @@ export async function mongoDbConnect(){
 
         connection.on("error",(err)=>{
             console.error("MongoDB connection error:", err);
+            process.exit();
         });
 
         connection.on("disconnected", () => {
