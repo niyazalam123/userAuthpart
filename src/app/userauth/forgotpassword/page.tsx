@@ -16,6 +16,7 @@ const page = () => {
             if(resp.data){
                 toast.success("check your email!link send to your email");
                 setMessage(true);
+                setEmail("");
             }
         } catch (error:any) {
             setError(error.response?.data?.error || "An error occurred");

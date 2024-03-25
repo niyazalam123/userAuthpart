@@ -3,6 +3,8 @@ import User from "@/models/signupModel";
 import { mongoDbConnect } from "@/dbConfig/dbConfig";
 import { sendMail } from "@/helpers/mailers";
 
+mongoDbConnect();
+
 export async function POST(request:NextRequest){
     try {
         const reqBody = await request.json();
