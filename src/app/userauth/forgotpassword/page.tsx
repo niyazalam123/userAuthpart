@@ -6,10 +6,23 @@ import toast, { Toaster } from 'react-hot-toast';
 const page = () => {
     const [email,setEmail] = useState("");
     const [loading,setLoading] = useState(false);
-    const [error,seterror] = useState("");
+    const [error,setError] = useState("");
+    const [message,setMessage] = useState(false);
 
     async function handleForgotPassword(){
-        
+        try {
+            setLoading(true);
+            const resp = await axios.post("/api/users/forgotpassword",{email});
+            if(resp.data){
+                toast.success("check your email!link send to your email");
+                setMessage(true);
+            }
+        } catch (error:any) {
+            setError(error.response?.data?.error || "An error occurred");
+            toast.error(error.response?.data?.error);
+        }finally{
+            setLoading(false);
+        }
     }
 
     return (
@@ -24,6 +37,12 @@ const page = () => {
                         <label htmlFor="_one1">Enter Email</label>
                         <input type="email" placeholder='Enter Email...' id="_one1"  onChange={(e)=>setEmail(e.target.value)} name="email" value={email} />
                     </div>
+                    {
+                        message && <p style={{color:"green",textAlign:"center",padding:"6px 0px"}}>we have send you an email for reset password</p>
+                    }
+                    {
+                        error && <p style={{color:"red",textAlign:"center",padding:"6px 0px"}}>error</p>
+                    }
                     <button className='_frgtp5' onClick={handleForgotPassword}>{loading?"Processing...":"Forgot password"}</button>
                 </div>
             </div>
