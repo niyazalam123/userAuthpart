@@ -10,11 +10,18 @@ export async function POST(request: NextRequest) {
         const reqBody = await request.json();
         const { signature, password } = reqBody;
 
+
+        // check password length
+        if (password.length<8){
+            return NextResponse.json({error:"Password length should more than 8"})
+        }
+
         // validation based on token token present or not in db
         const user = await User.findOne({ forgotPasswordToken: signature });
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 401 });
         }
+
 
         // token expiry check
         const currentTimeStamp = Date.now();

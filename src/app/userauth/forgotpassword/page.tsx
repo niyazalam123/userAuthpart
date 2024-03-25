@@ -12,6 +12,10 @@ const page = () => {
     async function handleForgotPassword(){
         try {
             setLoading(true);
+            if (email.length<1){
+                setError("Enter valid email");
+                return;
+            }
             const resp = await axios.post("/api/users/forgotpassword",{email});
             if(resp.data){
                 toast.success("check your email!link send to your email");
@@ -42,7 +46,7 @@ const page = () => {
                         message && <p style={{color:"green",textAlign:"center",padding:"6px 0px"}}>we have send you an email for reset password</p>
                     }
                     {
-                        error && <p style={{color:"red",textAlign:"center",padding:"6px 0px"}}>error</p>
+                        error && <p style={{color:"red",textAlign:"center",padding:"6px 0px"}}>{error}</p>
                     }
                     <button className='_frgtp5' onClick={handleForgotPassword}>{loading?"Processing...":"Forgot password"}</button>
                 </div>
